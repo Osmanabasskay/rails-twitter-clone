@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TwitterClone</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #f7f9fa;
+        color: #14171a;
+        line-height: 1.4;
+      }
+      
+      .header {
+        background-color: #1da1f2;
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      
+      .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+      }
+      
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        transition: background-color 0.2s;
+      }
+      
+      .nav-links a:hover {
+        background-color: rgba(255,255,255,0.1);
+      }
+      
+      .main-content {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      
+      .container {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      
+      .btn {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #1da1f2;
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s;
+      }
+      
+      .btn:hover {
+        background-color: #1991db;
+      }
+      
+      .btn-danger {
+        background-color: #e0245e;
+      }
+      
+      .btn-danger:hover {
+        background-color: #c91e56;
+      }
+      
+      .btn-secondary {
+        background-color: #657786;
+      }
+      
+      .btn-secondary:hover {
+        background-color: #5a6b7a;
+      }
+      
+      .form-group {
+        margin-bottom: 1rem;
+      }
+      
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+      
+      .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #e1e8ed;
+        border-radius: 4px;
+        font-size: 1rem;
+        resize: vertical;
+      }
+      
+      .form-control:focus {
+        outline: none;
+        border-color: #1da1f2;
+        box-shadow: 0 0 0 2px rgba(29, 161, 242, 0.2);
+      }
+      
+      .alert {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 4px;
+      }
+      
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+      
+      .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+      
+      .error-messages {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        border: 1px solid #f5c6cb;
+      }
+      
+      .error-messages h4 {
+        margin-bottom: 0.5rem;
+      }
+      
+      .error-messages ul {
+        margin-left: 1rem;
+      }
+      
+      .post {
+        border-bottom: 1px solid #e1e8ed;
+        padding: 1rem 0;
+      }
+      
+      .post:last-child {
+        border-bottom: none;
+      }
+      
+      .post-content {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        word-wrap: break-word;
+      }
+      
+      .post-meta {
+        color: #657786;
+        font-size: 0.9rem;
+        display: flex;
+        gap: 1rem;
+      }
+      
+      .post-actions {
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .footer {
+        background-color: #14171a;
+        color: #657786;
+        text-align: center;
+        padding: 2rem 0;
+        margin-top: 3rem;
+      }
+      
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      .char-counter {
+        text-align: right;
+        font-size: 0.9rem;
+        color: #657786;
+        margin-top: 0.25rem;
+      }
+      
+      .char-counter.warning {
+        color: #ff6b35;
+      }
+      
+      .char-counter.error {
+        color: #e0245e;
+      }
+      
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        
+        .main-content {
+          margin: 1rem auto;
+        }
+        
+        .post-actions {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <%= link_to "TwitterClone", root_path, class: "logo" %>
+        <nav class="nav-links">
+          <%= link_to "Home", root_path %>
+          <%= link_to "New Tweet", new_post_path %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <p>&copy; 2024 TwitterClone. Built with Ruby on Rails.</p>
+      </div>
+    </footer>
+  </body>
+</html>
