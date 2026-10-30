@@ -1,167 +1,71 @@
-# TwitterClone
+# Rails Twitter Clone
 
-A professional TwitterClone application built with Ruby on Rails that meets all academic requirements.
+A Ruby on Rails application for creating and managing short posts (tweets). The project demonstrates server-rendered CRUD workflows, model-level content validation, and a responsive interface.
 
 ## Features
 
-✅ **Ruby on Rails Application** - Built with Rails 7.1.3  
-✅ **Professional Frontend** - Clean HTML/CSS with header and footer  
-✅ **Full CRUD Operations** - Create, Read, Update, Delete tweets  
-✅ **Character Validation** - Tweets must be 1-140 characters  
-✅ **Error Handling** - Validation messages for empty content and character limits  
-✅ **Posts Table** - Uses 'posts' table with 'content' column  
-✅ **Responsive Design** - Mobile-friendly interface  
-✅ **Real-time Character Counter** - JavaScript-powered character counting  
+- Create, list, view, edit, and delete posts.
+- Validate that post content is present and between 1 and 140 characters.
+- Display validation feedback when submitted content is invalid.
+- Use a simple Twitter-inspired interface with shared navigation and layout.
+- Persist posts in a relational database.
 
-## Requirements Met
+## Technology
 
-- ✅ Must be an application using Ruby on Rails
-- ✅ Create a minimal front part (header, footer) using HTML and CSS
-- ✅ Ability to post, edit, list, and delete tweets
-- ✅ Only tweet 1 to 140 characters
-- ✅ Error messages for empty content or >140 characters
-- ✅ Use posts as the table name for tweets
-- ✅ Posts table has only content column (id and timestamps auto-generated)
+- Ruby 3.3.0
+- Ruby on Rails 7.1.3
+- SQLite3
+- HTML, ERB, CSS, and JavaScript
+- Importmap and Rails asset pipeline
 
-## Tech Stack
-
-- **Ruby**: 3.3.0
-- **Rails**: 7.1.3
-- **Database**: SQLite3 (for easy setup)
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Styling**: Custom CSS with Twitter-inspired design
-
-## Installation & Setup
+## Run locally
 
 ### Prerequisites
-- Ruby 3.3.0 or higher
-- Rails 7.1.3 or higher
-- SQLite3
 
-### Quick Start
+Install Ruby 3.3.0, Bundler, and SQLite3.
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd Dpro_Tweet-Application_Assignment_8-main
-   ```
+### Setup
 
-2. **Install dependencies**
-   ```bash
-   bundle install
-   ```
-
-3. **Setup database**
-   ```bash
-   rails db:create
-   rails db:migrate
-   ```
-
-4. **Start the server**
-   ```bash
-   rails server
-   ```
-
-5. **Visit the application**
-   Open your browser and go to `http://localhost:3000`
-
-### Alternative Setup with Docker
-
-1. **Build and run with Docker**
-   ```bash
-   docker build -t twitterclone .
-   docker run -p 3000:3000 twitterclone
-   ```
-
-## Usage
-
-### Creating a Tweet
-1. Click "New Tweet" in the navigation
-2. Type your message (1-140 characters)
-3. Watch the character counter update in real-time
-4. Click "Tweet" to post
-
-### Managing Tweets
-- **View**: Click "View" to see individual tweets
-- **Edit**: Click "Edit" to modify existing tweets
-- **Delete**: Click "Delete" to remove tweets (with confirmation)
-
-### Validation Features
-- **Empty Content**: Shows error if tweet is empty
-- **Character Limit**: Shows error if tweet exceeds 140 characters
-- **Real-time Counter**: JavaScript counter shows current character count
-- **Visual Feedback**: Counter changes color as you approach the limit
-
-## Project Structure
-
-```
-├── app/
-│   ├── controllers/
-│   │   ├── application_controller.rb
-│   │   └── posts_controller.rb
-│   ├── models/
-│   │   ├── application_record.rb
-│   │   └── post.rb
-│   ├── views/
-│   │   ├── layouts/
-│   │   │   └── application.html.erb
-│   │   └── posts/
-│   │       ├── index.html.erb
-│   │       ├── new.html.erb
-│   │       ├── edit.html.erb
-│   │       └── show.html.erb
-│   └── assets/
-│       └── stylesheets/
-│           └── application.css
-├── config/
-│   ├── application.rb
-│   ├── database.yml
-│   ├── routes.rb
-│   └── environments/
-├── db/
-│   └── migrate/
-│       └── 20241230000001_create_posts.rb
-└── public/
+```bash
+git clone https://github.com/Osmanabasskay/rails-twitter-clone.git
+cd rails-twitter-clone
+bundle install
+bin/rails db:prepare
+bin/rails server
 ```
 
-## Database Schema
+Open http://localhost:3000.
 
-### Posts Table
-```sql
-CREATE TABLE posts (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  content TEXT NOT NULL,
-  created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL
-);
-```
+If the repository does not include an executable `bin/rails` script, use `rails db:prepare` and `rails server` after installing the Rails dependencies.
 
-## API Endpoints
+## Main routes
 
-| Method | Path | Action | Description |
-|--------|------|--------|-------------|
-| GET | / | posts#index | List all tweets |
-| GET | /posts | posts#index | List all tweets |
-| GET | /posts/new | posts#new | New tweet form |
-| POST | /posts | posts#create | Create tweet |
-| GET | /posts/:id | posts#show | Show tweet |
-| GET | /posts/:id/edit | posts#edit | Edit tweet form |
-| PATCH/PUT | /posts/:id | posts#update | Update tweet |
-| DELETE | /posts/:id | posts#destroy | Delete tweet |
+| Method | Path | Purpose |
+|---|---|---|
+| GET | / | List posts |
+| GET | /posts/new | Display the new-post form |
+| POST | /posts | Create a post |
+| GET | /posts/:id | View a post |
+| GET | /posts/:id/edit | Display the edit form |
+| PATCH/PUT | /posts/:id | Update a post |
+| DELETE | /posts/:id | Delete a post |
 
-## Testing
+## Project structure
 
-The application includes comprehensive validation testing:
+- `app/controllers/posts_controller.rb`: post CRUD actions
+- `app/models/post.rb`: post model and validation
+- `app/views/posts/`: index, show, new, and edit views
+- `app/views/layouts/application.html.erb`: shared application layout
+- `db/migrate/`: database schema migration
 
-1. **Empty Content Test**: Try submitting an empty tweet
-2. **Character Limit Test**: Try submitting a tweet with >140 characters
-3. **CRUD Operations**: Test all create, read, update, delete operations
-4. **Responsive Design**: Test on different screen sizes
+## Current scope
 
-## Contributing
+This is a focused CRUD application, not a full social network. It does not currently provide user accounts, follows, likes, comments, direct messages, or a production social feed.
 
-This is an academic assignment. For educational purposes only.
+## Deployment
+
+A live demo is not currently configured. A deployment should be added only after the production database, environment variables, asset build, and hosting configuration have been verified.
 
 ## License
 
-This project is created for academic assignment purposes.
+See the repository for licensing information.
