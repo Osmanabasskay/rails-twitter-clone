@@ -81,3 +81,5 @@ Thumbs.db
 *.bak
 *.backup
 *.tmp
+# Windows Zone.Identifier metadata files
+*Zone.Identifier
